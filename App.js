@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Button, FlatList, Alert } from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
 import TodoElem from "./src/components/TodoElem/TodoElem";
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
             setTodos((prev) => [...prev, {id: prev[prev.length - 1].id + 1, text: textInput}]);
             setTextInput("");
         }else {
-            Alert.alert("This input must not be empty!");
+            //Alert.alert("This input must not be empty!");
         }
     }
 
@@ -34,31 +34,36 @@ export default function App() {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.header__text}>Todo List</Text>
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                           onChangeText={setTextInput}
-                           value={textInput}/>
-                <View style={styles.add}>
-                    <Button title={"+"} onPress={addNewTodo}/>
-                </View>
-            </View>
-            <FlatList
-                style={styles.todo_list}
-                data={todos}
-                renderItem={({ item }) => <TodoElem
-                    id={item.id}
-                    showDelete={showDelete}
-                    setShowDelete={setShowDelete}
-                    deleteTodo={deleteTodo}
-                    text={item.text}/>}
-                    keyExtractor={item => item.id.toString()}
-            />
-            <Text style={styles.subscribe}>Todo App By GUM</Text>
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+
+        {/*<View style={styles.container}>*/}
+        {/*    <View style={styles.header}>*/}
+        {/*        <Text style={styles.header__text}>Todo List</Text>*/}
+        {/*    </View>*/}
+        {/*    <View style={styles.form}>*/}
+        {/*        <TextInput style={styles.input}*/}
+        {/*                   onChangeText={setTextInput}*/}
+        {/*                   value={textInput}/>*/}
+        {/*        <View style={styles.add}>*/}
+        {/*            <Button title={"+"} onPress={addNewTodo}/>*/}
+        {/*        </View>*/}
+        {/*    </View>*/}
+        {/*    <FlatList*/}
+        {/*        style={styles.todo_list}*/}
+        {/*        data={todos}*/}
+        {/*        renderItem={({ item }) => <TodoElem*/}
+        {/*            id={item.id}*/}
+        {/*            showDelete={showDelete}*/}
+        {/*            setShowDelete={setShowDelete}*/}
+        {/*            deleteTodo={deleteTodo}*/}
+        {/*            text={item.text}/>}*/}
+        {/*            keyExtractor={item => item.id.toString()}*/}
+        {/*    />*/}
+        {/*    <Text style={styles.subscribe}>Todo App By GUM</Text>*/}
+        {/*</View>*/}
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
