@@ -1,10 +1,18 @@
 import React from "react";
-import {View} from "react-native-reanimated";
+import {View, Text, Button} from "react-native";
 
-const Books = () => {
+const Books = (props) => {
+    const { navigation } = props;
+
     return(
         <View>
-            Books
+            <Text>
+                Books
+            </Text>
+            <Button
+                title="Go to Films"
+                onPress={() => navigation.navigate('Films')}
+            />
         </View>
     );
 }

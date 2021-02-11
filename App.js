@@ -1,21 +1,17 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
 import TodoElem from "./src/components/TodoElem/TodoElem";
+import NavigationContainer from "@react-navigation/native/src/NavigationContainer";
+import {createStackNavigator} from "@react-navigation/stack";
+import Films from "./src/components/FIlms/Films";
+import Books from "./src/components/Books/Books";
+
+const Stack = createStackNavigator();
 
 export default function App() {
     const [todos, setTodos] = useState([
         {id: 1, text: "New Todo to Need to do 1"},
-        {id: 2, text: "New Todo to Need to do 2"},
-        {id: 3, text: "New Todo to Need to do 3"},
-        {id: 4, text: "New Todo to Need to do 4"},
-        {id: 5, text: "New Todo to Need to do 5"},
-        {id: 6, text: "New Todo to Need to do 6 "},
-        {id: 7, text: "New Todo to Need to do 7"},
-        {id: 8, text: "New Todo to Need to do 8"},
-        {id: 9, text: "New Todo to Need to do 9"},
-        {id: 10, text: "New Todo to Need to do 10"},
-        {id: 11, text: "New Todo to Need to do 11"},
-        {id: 12, text: "New Todo to Need to do 12"},
+
     ]);
     const [textInput, setTextInput] = useState("");
     const [showDelete, setShowDelete] = useState(0);
@@ -36,34 +32,35 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-
-        {/*<View style={styles.container}>*/}
-        {/*    <View style={styles.header}>*/}
-        {/*        <Text style={styles.header__text}>Todo List</Text>*/}
-        {/*    </View>*/}
-        {/*    <View style={styles.form}>*/}
-        {/*        <TextInput style={styles.input}*/}
-        {/*                   onChangeText={setTextInput}*/}
-        {/*                   value={textInput}/>*/}
-        {/*        <View style={styles.add}>*/}
-        {/*            <Button title={"+"} onPress={addNewTodo}/>*/}
-        {/*        </View>*/}
-        {/*    </View>*/}
-        {/*    <FlatList*/}
-        {/*        style={styles.todo_list}*/}
-        {/*        data={todos}*/}
-        {/*        renderItem={({ item }) => <TodoElem*/}
-        {/*            id={item.id}*/}
-        {/*            showDelete={showDelete}*/}
-        {/*            setShowDelete={setShowDelete}*/}
-        {/*            deleteTodo={deleteTodo}*/}
-        {/*            text={item.text}/>}*/}
-        {/*            keyExtractor={item => item.id.toString()}*/}
-        {/*    />*/}
-        {/*    <Text style={styles.subscribe}>Todo App By GUM</Text>*/}
-        {/*</View>*/}
+                <Stack.Screen name="Films" component={Films} />
+                <Stack.Screen name="Books" component={Books} />
             </Stack.Navigator>
         </NavigationContainer>
+        // <View style={styles.container}>
+        //     <View style={styles.header}>
+        //         <Text style={styles.header__text}>Todo List</Text>
+        //     </View>
+        //     <View style={styles.form}>
+        //         <TextInput style={styles.input}
+        //                    onChangeText={setTextInput}
+        //                    value={textInput}/>
+        //         <View style={styles.add}>
+        //             <Button title={"+"} onPress={addNewTodo}/>
+        //         </View>
+        //     </View>
+        //     <FlatList
+        //         style={styles.todo_list}
+        //         data={todos}
+        //         renderItem={({ item }) => <TodoElem
+        //             id={item.id}
+        //             showDelete={showDelete}
+        //             setShowDelete={setShowDelete}
+        //             deleteTodo={deleteTodo}
+        //             text={item.text}/>}
+        //             keyExtractor={item => item.id.toString()}
+        //     />
+        //     <Text style={styles.subscribe}>Todo App By GUM</Text>
+        // </View>
     );
 }
 
