@@ -1,17 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
 import TodoElem from "./src/components/TodoElem/TodoElem";
 import NavigationContainer from "@react-navigation/native/src/NavigationContainer";
 import {createStackNavigator} from "@react-navigation/stack";
-import Films from "./src/components/FIlms/Films";
-import Books from "./src/components/Books/Books";
+import Home from "./src/Pages/Home/Home.page";
+import Films from "./src/Pages/Films/Films.page";
+import Books from "./src/Pages/Books/Books.page";
+import ApiKeys from "./src/API/ApiKeys";
+import * as firebase from "firebase";
+import {Provider, useDispatch} from "react-redux";
+import store from "./src/Redux/store";
+import {getFilms} from "./src/Redux/FilmReducer";
+import {getBooks} from "./src/Redux/BookReducer";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function AppWrapper() {
+    return(
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+}
+
+const App = () => {
+    if(!firebase.apps.length) {
+        firebase.initializeApp(ApiKeys.FirebaseConfig);
+    }
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getFilms());
+        dispatch(getBooks());
+    }, [])
+
     const [todos, setTodos] = useState([
         {id: 1, text: "New Todo to Need to do 1"},
-
     ]);
     const [textInput, setTextInput] = useState("");
     const [showDelete, setShowDelete] = useState(0);
@@ -30,12 +55,16 @@ export default function App() {
     }
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Films" component={Films} />
-                <Stack.Screen name="Books" component={Books} />
-            </Stack.Navigator>
-        </NavigationContainer>
+
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="Home" component={Home} />
+                    <Stack.Screen name="Films" component={Films} />
+                    <Stack.Screen name="Books" component={Books} />
+                </Stack.Navigator>
+            </NavigationContainer>
+
+
         // <View style={styles.container}>
         //     <View style={styles.header}>
         //         <Text style={styles.header__text}>Todo List</Text>
